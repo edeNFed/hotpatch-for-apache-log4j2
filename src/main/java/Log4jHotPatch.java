@@ -168,7 +168,6 @@ public class Log4jHotPatch {
 
   private static boolean loadInstrumentationAgent(String[] pids) throws Exception {
     boolean succeeded = true;
-    File jarFile = new File(Log4jHotPatch.class.getProtectionDomain().getCodeSource().getLocation().toURI());
     String we = getUID("self");
     for (String pid : pids) {
       if (pid != null) {
@@ -198,7 +197,7 @@ public class Log4jHotPatch {
           }
 
           // unpatched target VM, apply patch
-          vm.loadAgent(jarFile.getAbsolutePath(), "log4jFixerVerbose=" + verbose);
+          vm.loadAgent("/tmp/Log4jHotPatch.jar", "log4jFixerVerbose=" + verbose);
         } catch (Exception e) {
           succeeded = false;
           if (verbose) {
